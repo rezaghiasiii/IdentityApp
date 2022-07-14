@@ -1,11 +1,12 @@
+using IdentityApp.Models.Context;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
-
-builder.Services.AddDbContext<AppContext>();
+builder.Services.AddDbContext<AppDbContext>(option =>
+    option.UseSqlServer(builder.Configuration.GetConnectionString("IdentityDb")));
 
 var app = builder.Build();
 
