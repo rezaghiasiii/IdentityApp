@@ -19,6 +19,13 @@ services.AddIdentity<IdentityUser, IdentityRole>(option =>
 }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders().AddErrorDescriber<PersianIdentityErrorDescriber.PersianIdentityErrorDescriber>();
 
 services.AddScoped<IMessageSender, MessageSender>();
+
+services.AddAuthentication().AddGoogle(options =>
+{
+    options.ClientId = "171267951019-jth974leb4ejifiudmsqcqm8igcv0e6n.apps.googleusercontent.com";
+    options.ClientSecret = "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";
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
