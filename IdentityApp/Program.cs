@@ -9,7 +9,13 @@ services.AddControllersWithViews().AddRazorRuntimeCompilation();
 services.AddDbContext<AppDbContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("IdentityDb")));
 
-services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+services.AddIdentity<IdentityUser, IdentityRole>(option =>
+{
+    option.Password.RequiredUniqueChars = 0;
+    option.User.RequireUniqueEmail = true;
+    option.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+}).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
 var app = builder.Build();
 
