@@ -15,7 +15,7 @@ services.AddIdentity<IdentityUser, IdentityRole>(option =>
     option.User.RequireUniqueEmail = true;
     option.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
-}).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+}).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders().AddErrorDescriber<PersianIdentityErrorDescriber.PersianIdentityErrorDescriber>();
 
 var app = builder.Build();
 

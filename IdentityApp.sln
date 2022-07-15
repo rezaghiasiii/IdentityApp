@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityApp", "IdentityApp\IdentityApp.csproj", "{58221255-BE41-4334-BC1D-5A5AF9EC4F63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityApp", "IdentityApp\IdentityApp.csproj", "{58221255-BE41-4334-BC1D-5A5AF9EC4F63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersianIdentityErrorDescriber", "PersianIdentityErrorDescriber\PersianIdentityErrorDescriber.csproj", "{03E329F2-C18B-4923-B529-61598BB87DA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{58221255-BE41-4334-BC1D-5A5AF9EC4F63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58221255-BE41-4334-BC1D-5A5AF9EC4F63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58221255-BE41-4334-BC1D-5A5AF9EC4F63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03E329F2-C18B-4923-B529-61598BB87DA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03E329F2-C18B-4923-B529-61598BB87DA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03E329F2-C18B-4923-B529-61598BB87DA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03E329F2-C18B-4923-B529-61598BB87DA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
