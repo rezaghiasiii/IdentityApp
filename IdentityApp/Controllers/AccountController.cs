@@ -1,4 +1,5 @@
-﻿using IdentityApp.ViewModels.Account;
+﻿using IdentityApp.Repositories;
+using IdentityApp.ViewModels.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +9,12 @@ namespace IdentityApp.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        private readonly IMessageSender _messageSender;
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IMessageSender messageSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _messageSender = messageSender;
         }
 
         [HttpGet]
@@ -28,13 +31,20 @@ namespace IdentityApp.Controllers
                 var user = new IdentityUser()
                 {
                     UserName = model.UserName,
-                    Email = model.Email,
-                    EmailConfirmed = true
+                    Email = model.Email
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
+                {
+                    var emailConfirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var emailMessage = Url.Action("ConfirmEmail", "Account",
+                        new { username = user.UserName, token = emailConfirmationToken }, Request.Scheme);
+                    //await _messageSender.SendEmailAsync(model.Email, "تاییدیه ایمیل", emailMessage);
+
                     return RedirectToAction("Index", "Home");
+                }
+
 
                 foreach (var error in result.Errors)
                 {
@@ -90,19 +100,31 @@ namespace IdentityApp.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-        
+
         public async Task<IActionResult> IsEmailInUse(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null) return Json(true);
             return Json("ایمیل وارد شده از قبل وارد شده است.");
         }
-        
+
         public async Task<IActionResult> IsUserNameInUse(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName);
             if (user == null) return Json(true);
             return Json("نام کاربری وارد شده از قبل وارد شده است.");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ConfirmEmail(string userName, string token)
+        {
+            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(token))
+                return NotFound();
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user == null) return NotFound();
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+
+            return Content(result.Succeeded ? "ایمیل شما تایید شد" : "ایمیل شما مورد تایید قرار نگرفت");
         }
     }
 }

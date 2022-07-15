@@ -1,4 +1,5 @@
 using IdentityApp.Models.Context;
+using IdentityApp.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,7 @@ services.AddIdentity<IdentityUser, IdentityRole>(option =>
     option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
 }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders().AddErrorDescriber<PersianIdentityErrorDescriber.PersianIdentityErrorDescriber>();
 
+services.AddScoped<IMessageSender, MessageSender>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
