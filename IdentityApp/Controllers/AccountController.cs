@@ -55,7 +55,7 @@ namespace IdentityApp.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model,string? returnUrl=null)
+        public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
         {
             if (_signInManager.IsSignedIn(User))
                 return RedirectToAction("Index", "Home");
@@ -87,8 +87,22 @@ namespace IdentityApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOut()
         {
-           await _signInManager.SignOutAsync();
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+        
+        public async Task<IActionResult> IsEmailInUse(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null) return Json(true);
+            return Json("ایمیل وارد شده از قبل وارد شده است.");
+        }
+        
+        public async Task<IActionResult> IsUserNameInUse(string userName)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user == null) return Json(true);
+            return Json("نام کاربری وارد شده از قبل وارد شده است.");
         }
     }
 }

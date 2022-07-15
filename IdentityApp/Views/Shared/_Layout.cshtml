@@ -33,14 +33,10 @@
                         else
                         {
                             <li class="nav-item ml-auto">
-                                <form asp-controller="Account" asp-action="Login" method="get">
-                                    <button type="submit" class="btn nav-link text-dark">ورود</button>
-                                </form>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">ورود</a>
                             </li>
                             <li class="nav-item ml-auto">
-                                <form asp-controller="Account" asp-action="Register" method="get">
-                                    <button type="submit" class="btn nav-link text-dark">ثبت نام</button>
-                                </form>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">ثبت نام</a>
                             </li>
                         }
                         
