@@ -12,7 +12,7 @@ namespace IdentityApp.ViewModels.Account
         [Display(Name = "مرا به خاطر بسپار")]
         public bool RememberMe { get; set; }
 
-        public string ReturnUrl { get; set; }
-        public IList<AuthenticationScheme> ExternalLogins { get; set; }
+        public string? ReturnUrl { get; set; }
+        public IList<AuthenticationScheme>? ExternalLogins { get; set; }
     }
 }

@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using IdentityApp.Models;
 using IdentityApp.Models.Context;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IdentityApp.Controllers
 {
+    [Authorize(Roles = "Admin,User")]
     public class EmployeeController : Controller
     {
         private readonly AppDbContext _context;
@@ -20,6 +17,7 @@ namespace IdentityApp.Controllers
         }
 
         // GET: Employee
+        // [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
               return _context.Employees != null ? 

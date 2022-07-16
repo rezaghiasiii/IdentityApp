@@ -23,4 +23,8 @@
     <ProjectReference Include="..\PersianIdentityErrorDescriber\PersianIdentityErrorDescriber.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels\ManageUser\" />
+  </ItemGroup>
+
 </Project>
